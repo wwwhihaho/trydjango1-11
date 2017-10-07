@@ -1,28 +1,28 @@
 import random
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views import View
+from django.views.generic import TemplateView
 
 # Create your views here.
-# function based view
-def home_old(request):
-    html_var = 'f strings'
-    num = random.randint(0, 10000000)
-    html_ = f"""<!DOCTYPE html>
-    <html lang="en">
+class HomeView(TemplateView):
+    template_name = 'home.html'
 
-    <head>
-    </head>
-    <body>
-    <h1>Hello World!</h1>
-    <p>This is {html_var} coming through</p>
-    <p>This is a random number : {num} coming through</p>
-    </body>
-    </html>
-    """
-    # f strings
-    return HttpResponse(html_)
-    # return render(request, "home.html", {}) #response
-
-def home(request):
-    num = random.randint(0, 10000000)
-    return render(request, "base.html", {"html_var": True, "num": num})
+    def get_context_data(self, *args, **kwargs):
+        context = super(HomeView, self).get_context_data(*args, **kwargs)
+        num = None
+        some_list = [
+            random.randint(0, 10000000), 
+            random.randint(0, 10000000), 
+            random.randint(0, 10000000)
+            ]
+        testlist = [1,2,3,4,5]
+        condition_bool_item = True
+        if condition_bool_item:
+            num = random.randint(0, 10000000)
+        context = {
+            "num" : num, 
+            "some_list" : some_list,
+            "testlist" : testlist
+        }
+        return context
