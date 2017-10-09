@@ -3,7 +3,7 @@
 {% block head_title %}Restaurant | {{ block.super }}{% endblock head_title %}
 
 {% block content %}
-<h1>Restaurant List</h1>
+<h1>My Restaurant List <small><a href='{% url "restaurants:create" %}'>Add</a></small></h1>
 
 
 <ul>
@@ -14,6 +14,8 @@
             {{ obj.timestamp }}
             {{ obj.updated }}
         </li>
+        {% empty %}
+        <li></li>
     {% endfor %}
 </ul>
 {% endblock %}
